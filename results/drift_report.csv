@@ -1,0 +1,8 @@
+feature,ks_pvalue,psi,drift_detected
+age,0.72238,0.0123,No
+balance,0.96272,0.0003,No
+day,0.52831,0.0805,No
+duration,0.37061,0.0001,No
+campaign,0.12954,4.2683,Yes
+pdays,0.74198,0.0005,No
+previous,0.99977,0.0004,No
