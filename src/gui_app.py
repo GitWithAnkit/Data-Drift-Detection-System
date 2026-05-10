@@ -85,6 +85,20 @@ if st.session_state.drift_results is not None:
 
     st.subheader("🔍 Drift Detection Result")
 
+    # ==============================
+    # DRIFT SUMMARY DASHBOARD
+    # ==============================
+
+    total_features = len(drift_report)
+    drifted_features = len(drift_report[drift_report["drift_detected"] == "Yes"])
+    high_drift = len(drift_report[drift_report["severity"] == "High"])
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Total Features", total_features)
+    col2.metric("Drifted Features", drifted_features)
+    col3.metric("High Drift Features", high_drift)
+
     if overall_drift == "Yes":
         st.error("⚠️ Data Drift Detected")
     else:
@@ -92,6 +106,19 @@ if st.session_state.drift_results is not None:
 
     st.subheader("📋 Feature-wise Drift Report")
     st.dataframe(drift_report)
+
+    # ==============================
+    # DOWNLOAD REPORT BUTTON
+    # ==============================
+
+    csv = drift_report.to_csv(index=False).encode('utf-8')
+
+    st.download_button(
+        label="📥 Download Drift Report",
+        data=csv,
+        file_name="drift_report.csv",
+        mime="text/csv"
+    )
 
     # ==============================
     # DRIFT VISUALIZATION
